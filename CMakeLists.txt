@@ -7,8 +7,19 @@ enable_testing()
 find_package( OpenCV REQUIRED )
 include_directories( ${OpenCV_INCLUDE_DIRS} )
 
-add_executable(inference inference.cpp)
-target_link_libraries(inference ${OpenCV_LIBRARIES})
+add_executable(inference inference_cpp.cpp)
+target_link_libraries(inference
+/opt/intel/openvino/extras/opencv/lib/libopencv_dnn.so
+/opt/intel/openvino/extras/opencv/lib/libopencv_core.so
+/opt/intel/openvino/extras/opencv/lib/libopencv_imgcodecs.so
+/opt/intel/openvino/extras/opencv/lib/libopencv_imgproc.so
+/opt/intel/openvino/runtime/lib/intel64/libopenvino.so
+)
+target_include_directories(inference PUBLIC 
+/opt/intel/openvino/extras/opencv/include/
+/opt/intel/openvino/runtime/include/
+/opt/intel/openvino/runtime/include/ie/
+)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
